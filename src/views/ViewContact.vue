@@ -28,8 +28,7 @@
         </div>
        </div>
 
-
-      <div class="container"  v-if="!loading && isDone()">
+       <div class="container"  v-if="!loading && isDone()">
         <div class="row align-items-center">
             <div class="col-md-4">
                 <img :src="contact.photo" alt="" class="contact-img-big">
@@ -50,8 +49,7 @@
         </div>
       </div>
 </template>
-  
-  
+
 <script>
 import Spinner from '@/components/Spinner.vue';
 import {ContactService } from '@/services/ContactServise'
@@ -86,8 +84,9 @@ export default {
     }
    }
 }
-    
-  </script>
-  <style>
+
+</script>
+
+<style>
   
-  </style>
+</style>

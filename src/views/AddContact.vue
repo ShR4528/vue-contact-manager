@@ -13,27 +13,24 @@
       <div class="col-md-3">
         <form @submit.prevent="submitCreate()">
           <div class="mb-2">
-            <input v-model="contact.name" type="text" class="form-control" placeholder="Name">
+            <input required v-model="contact.name" type="text" class="form-control" placeholder="Name">
           </div>
           <div class="mb-2">
-            <input v-model="contact.photo" type="text" class="form-control" placeholder="Photo Url">
+            <input required  v-model="contact.photo" type="text" class="form-control" placeholder="Photo Url">
           </div>
           <div class="mb-2">
-            <input v-model="contact.email" type="text" class="form-control" placeholder="Email">
+            <input required  v-model="contact.email" type="text" class="form-control" placeholder="Email">
           </div>
           <div class="mb-2">
-            <input  v-model="contact.phone" type="text" class="form-control" placeholder="Phone">
+            <input required  v-model="contact.phone" type="text" class="form-control" placeholder="Phone">
           </div>
           <div class="mb-2">
-            <input  v-model="contact.company" type="text" class="form-control" placeholder="Company">
+            <input  required v-model="contact.company" type="text" class="form-control" placeholder="Company">
           </div>
           <div class="mb-2">
-            <input  v-model="contact.title" type="text" class="form-control" placeholder="Title">
+            <input  required  v-model="contact.title" type="text" class="form-control" placeholder="Title">
           </div>
           <div class="mb-2">
-            <!-- <select class="form-control">
-              <option value="">Select Group</option>
-            </select> -->
             <div class="mb-2">
               <input type="submit" class="btn btn-success" value="Create">
             </div>
@@ -47,16 +44,14 @@
   </div>
 </template>
   
-  
-  <script>
+<script>
 import { ContactService } from '@/services/ContactServise';
 
-  export default {
+export default {
     name: 'AddContact',
     data: function() {
       return {
         contact : {
-
           name: '',
           photo: '',
           email: '',
@@ -84,7 +79,8 @@ import { ContactService } from '@/services/ContactServise';
 
   }
     
-  </script>
-  <style>
+</script>
+
+<style>
   
-  </style>
+</style>
