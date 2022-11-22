@@ -13,7 +13,7 @@
                     <input type="text" class="form-control" placeholder="Search Name">
                   </div>
                   <div class="col">
-                    <input type="submit" class="btn btn-outline-dark" placeholder="...">
+                    <input type="submit" class="btn btn-outline-dark" value="Submit">
                   </div>
                 </div>
               </div>
@@ -22,6 +22,29 @@
         </div>
       </div>
     </div>
+
+   <div v-if="loading">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <Spinner />
+        </div>
+      </div>
+    </div>
+   </div>
+
+   <div v-if="!loading && errorMessage">
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col">
+         <p></p>
+        </div>
+      </div>
+    </div>
+   </div>
+
+   <!-- </div> -->
+
     <div class="container mt-3" v-if="contacts.length > 0">
       <div class="row">
         <div class="col-md-6" v-for="contact of contacts" :key="contact">
@@ -39,10 +62,10 @@
                   </ul>
                 </div>
                 <div class="col-sm-1 d-flex flex-column justify-content-center align-items-center">
-                  <router-link to="/contacts/view/:contactID" class="btn btn-warning my-1">
+                  <router-link :to="`/contacts/view/${contact.id}`" class="btn btn-warning my-1">
                     <i class="fa fa-eye"></i>
                   </router-link>
-                  <router-link to="/contacts/edit/:contactID" class="btn btn-primary my-1">
+                  <router-link :to="`/contacts/edit/${contact.id}`" class="btn btn-primary my-1">
                     <i class="fa fa-pen"></i>
                   </router-link>
                   <button class="btn btn-danger my-1">
@@ -60,34 +83,33 @@
   
   
 <script>
+import Spinner from '@/components/Spinner.vue';
 import { ContactService } from '@/services/ContactServise';
 
   export default {
-    name: 'ContactManager',
+    name: "ContactManager",
     data: function () {
-      return {
-        loading: false,
-        contacts: [],
-        errorMessage: null
-      }
+        return {
+            loading: false,
+            contacts: [],
+            errorMessage: null
+        };
     },
-    created: async function() {
-      try {
-        this.loading = true;
-        let response = await ContactService.getAllContacts();
-        this.contacts = response.data; 
-        this.loading = false;
-
-      } catch (error) {
-        this.errorMessage = error;
-        this.loading = false;
-      }
-
+    created: async function () {
+        try {
+            this.loading = true;
+            let response = await ContactService.getAllContacts();
+            this.contacts = response.data;
+            this.loading = false;
+        }
+        catch (error) {
+            this.errorMessage = error;
+            this.loading = false;
+        }
     },
-    methods: {
-     
-    }
-  }
+    methods: {},
+    components: { Spinner }
+}
     
   </script>
   <style>

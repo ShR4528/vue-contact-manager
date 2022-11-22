@@ -31,9 +31,9 @@
             <input type="text" class="form-control" placeholder="Title">
           </div>
           <div class="mb-2">
-            <select class="form-control">
+            <!-- <select class="form-control">
               <option value="">Select Group</option>
-            </select>
+            </select> -->
             <div class="mb-2">
               <input type="submit" class="btn btn-success" value="Update">
             </div>
@@ -45,12 +45,22 @@
       </div>
     </div>
   </div>
+  <pre>{{contactID}}</pre>
 </template>
   
   
   <script>
   export default {
-    name: 'EditContact'
+    name: 'EditContact',
+    data: function (){
+     return {
+      contactID: this.$route.params.contactID,
+      loading: false,
+      contact: {},
+      errorMessage: null 
+    }
+  },
+  
   }
     
   </script>

@@ -7,19 +7,39 @@
         </div>
         </div>
       </div>
-      <div class="container">
+
+      <div v-if="loading">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <Spinner />
+            </div>
+          </div>
+        </div>
+       </div>
+    
+       <div v-if="!loading && errorMessage">
+        <div class="container mt-3">
+          <div class="row">
+            <div class="col">
+             <p class="h4 text-danger fw-bold">{{errorMessage}}</p>
+            </div>
+          </div>
+        </div>
+       </div>
+
+
+      <div class="container"  v-if="!loading && isDone()">
         <div class="row align-items-center">
             <div class="col-md-4">
-                <img src="../assets/585e4bcdcb11b227491c3396.png" alt="" class="contact-img-big">
+                <img :src="contact.photo" alt="" class="contact-img-big">
             </div>
             <div class="col-md-6">
                 <ul class="list-group">
-                    <li class="list-group-item">Name : <span class="fw-bold">Name</span> </li>
-                    <li class="list-group-item">Email : <span class="fw-bold">Email</span> </li>
-                    <li class="list-group-item">Mobile : <span class="fw-bold">Mobile</span> </li>
-                    <li class="list-group-item">Company : <span class="fw-bold">Company</span> </li>
-                    <li class="list-group-item">Title : <span class="fw-bold">title</span> </li>
-                    <li class="list-group-item">Group : <span class="fw-bold">Group</span> </li>
+                    <li class="list-group-item">Name : <span class="fw-bold">{{contact.name}}</span> </li>
+                    <li class="list-group-item">Email : <span class="fw-bold">{{contact.email}}</span> </li>
+                    <li class="list-group-item">Phone : <span class="fw-bold">{{contact.phone}}</span> </li>
+                    <li class="list-group-item">Username : <span class="fw-bold">{{contact.username}}</span> </li>
                   </ul>
             </div>
         </div>
@@ -29,15 +49,43 @@
             </div>  
         </div>
       </div>
-   
+</template>
+  
+  
+<script>
+import Spinner from '@/components/Spinner.vue';
+import {ContactService } from '@/services/ContactServise'
+
+export default {
+    name: "ViewContact",
+    components: { Spinner },
+    data: function () {
+        return {
+            contactID: this.$route.params.contactID,
+            loading: false,
+            contact: {},
+            errorMesage: null
+        };
+    },
+    created: async function () {
+        try {
+            this.loading = true;
+            let response = await ContactService.getContact(this.contactID);
+            this.contact = response.data;
+            this.loading = false;
+        }
+        catch (error) {
+            this.errorMesage = error;
+            this.loading = false;
+        }
+    },
+   methods: {
+    isDone: function() {
+      return Object.keys(this.contact).length > 0;
     
-  </template>
-  
-  
-  <script>
-  export default {
-    name: 'ViewContact'
-  }
+    }
+   }
+}
     
   </script>
   <style>

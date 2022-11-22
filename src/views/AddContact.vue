@@ -11,29 +11,29 @@
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-3">
-        <form>
+        <form @submit.prevent="submitCreate()">
           <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Name">
+            <input v-model="contact.name" type="text" class="form-control" placeholder="Name">
           </div>
           <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Photo Url">
+            <input v-model="contact.photo" type="text" class="form-control" placeholder="Photo Url">
           </div>
           <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Email">
+            <input v-model="contact.email" type="text" class="form-control" placeholder="Email">
           </div>
           <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Mobile">
+            <input  v-model="contact.phone" type="text" class="form-control" placeholder="Phone">
           </div>
           <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Company">
+            <input  v-model="contact.company" type="text" class="form-control" placeholder="Company">
           </div>
           <div class="mb-2">
-            <input type="text" class="form-control" placeholder="Title">
+            <input  v-model="contact.title" type="text" class="form-control" placeholder="Title">
           </div>
           <div class="mb-2">
-            <select class="form-control">
+            <!-- <select class="form-control">
               <option value="">Select Group</option>
-            </select>
+            </select> -->
             <div class="mb-2">
               <input type="submit" class="btn btn-success" value="Create">
             </div>
@@ -41,7 +41,7 @@
         </form>
       </div>
       <div class="col-md-4">
-        <img src="../assets/585e4bcdcb11b227491c3396.png" alt="" class="contact-img">
+        <img :src="contact.photo" alt="" class="contact-img">
       </div>
     </div>
   </div>
@@ -49,8 +49,39 @@
   
   
   <script>
+import { ContactService } from '@/services/ContactServise';
+
   export default {
-    name: 'AddContact'
+    name: 'AddContact',
+    data: function() {
+      return {
+        contact : {
+
+          name: '',
+          photo: '',
+          email: '',
+          company: '',
+          title: ''
+
+        }
+      }
+    },
+    methods: {
+      submitCreate: async function (){
+        try {
+          let response = await ContactService.createContact(this.contact);
+          if(response){
+            return this.$router.push('/');
+          } else {
+           return this.$router.push('/contacts/add');
+          }
+        } 
+        catch (error) {
+          console.log(error)
+        }
+      }
+    }
+
   }
     
   </script>
