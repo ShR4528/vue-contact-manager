@@ -46,5 +46,18 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "description": "## Project setup ``` npm install ```",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShR4528/vue-contact-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShR4528/vue-contact-manager/issues"
+  },
+  "homepage": "https://github.com/ShR4528/vue-contact-manager#readme"
 }
